@@ -1,0 +1,22 @@
+$color-btn-default: black;
+$color-btn-text: white;
+
+.shoppingCard {
+  display: flex;
+  flex-direction: column;
+  width: 220px;
+  height: 820px;
+  padding: 10px;
+  text-align: center;
+  align-items: center;
+}
+
+.addButton {
+  background: $color-btn-default;
+  color: $color-btn-text;
+  font-size: 14px;
+  line-height: 22px;
+  padding: 5px;
+  width: 140px;
+  margin-top: 15px;
+}
