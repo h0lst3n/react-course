@@ -1,20 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.scss';
-import App from './App';
-import ToDoList from './ToDoList';
+import RegistrationForm from './RegistrationForm';
 import * as serviceWorker from './serviceWorker';
-
-const itemList = [
-  {
-    name: 'List item 1',
-    isCompleted: false
-  }
-];
 
 ReactDOM.render(
   <React.StrictMode>
-    <ToDoList items={itemList}/>
+    <RegistrationForm/>
   </React.StrictMode>,
   document.getElementById('root')
 );
