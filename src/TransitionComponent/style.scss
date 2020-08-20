@@ -1,0 +1,13 @@
+.example-node,
+.example-node.enter,
+.example-node.exit-active  {
+  opacity: .1;
+}
+
+.example-node.enter-active {
+  opacity: 1;
+};
+
+.example-node {
+  transition: opacity 300ms ease-in;
+}

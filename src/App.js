@@ -1,33 +1,58 @@
 import React from 'react';
-import Layout from './components/Layout';
-import ShoppingCard from './components/ShoppingCard';
+
+import {BrowserRouter, Route, NavLink} from 'react-router-dom'
+import {CSSTransition} from 'react-transition-group';
+//import TransitionComponent from './TransitionComponent';
+//import TransitionGroupComponent from './TransitionGroupComponent';
+//
+// import SwitchTransitionComponent from './SwitchTransitionComponent';
+//
+import HomePage from './Pages/Home';
+import AboutPage from './Pages/About';
+import ContactsPage from './Pages/Contacts';
 import './App.scss';
 
-const getShoppingCardData = () => ([{
-  name: 'Card item name 1',
-  shippingStatus: "Free Shipping",
-  imageSrc: "https://react-shopping-cart-67954.firebaseapp.com/static/media/12064273040195392_1.2995d79a.jpg",
-  price: 10.2,
-  discount: 20
-}, {
-  name: 'Card item name 2',
-  shippingStatus: "Free Shipping",
-  imageSrc: "https://react-shopping-cart-67954.firebaseapp.com/static/media/12064273040195392_1.2995d79a.jpg",
-  price: 8.2,
-  discount: 10
-}, {
-  name: 'Card item name 3',
-  imageSrc: "https://react-shopping-cart-67954.firebaseapp.com/static/media/12064273040195392_1.2995d79a.jpg",
-  price: 25,
-  discount: 30
-}]);
+const routes = [
+  { path: '/', name: 'Home', Component: HomePage},
+  { path: '/contacts', name: 'Contacts', Component: ContactsPage},
+  { path: '/about', name: 'About', Component: AboutPage}
+];
 
 const App = () => {
-  const children = getShoppingCardData().map((card, index) => <ShoppingCard {...card} key={`shipping-card-${index}`}/>);
+  // {/* <TransitionComponent/> */}
+  // {/* <TransitionGroupComponent/> */}
+  // {/* <SwitchTransitionComponent/> */}
   return (
-    <Layout>
-      {children}
-    </Layout>
+    <BrowserRouter>
+      <>
+        <div>
+          <NavLink to="/">Home</NavLink>
+          <NavLink to="/contacts">Contacts</NavLink>
+          <NavLink to="/about">About</NavLink>
+        </div>
+        <div className="container">
+          {routes.map(({path, Component}) => (
+            <Route key={path} exact path={path}>
+              {
+                ({match}) => (
+                  <CSSTransition
+                    in={match !== null}
+                    timeout={500}
+                    classNames="page"
+                    unmountOnExit
+                  >
+                    <div className="page">
+                      <Component/>
+                    </div>
+                  </CSSTransition>
+                )
+              }
+            </Route>
+          ))}
+        </div>
+      </>
+    </BrowserRouter>
+
   );
 }
 
