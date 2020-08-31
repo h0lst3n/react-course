@@ -17,7 +17,7 @@ class NotesList extends React.Component {
     const notesList = this.renderNotes(notes);
     return(
       <div>
-        <button onClick={() => {this.props.addNote('New Note')}}>Add note</button>
+        <button onClick={() => {this.props.addNote('Some text')}}>Add note</button>
         <ul>
           {notesList}
         </ul>
