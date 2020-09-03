@@ -1,5 +1,5 @@
 import React from 'react';
-import NotesList from './Components/NotesList';
+import PostsContainer from './Components/PostsContainer';
 import './App.scss';
 
 const App = () => {
@@ -7,8 +7,8 @@ const App = () => {
     <>
       <div>React APP</div>
       <div>
-        <h3>Notes list:</h3>
-        <NotesList/>
+        <h3>Posts list:</h3>
+        <PostsContainer/>
       </div>
     </>
   );

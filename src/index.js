@@ -1,6 +1,5 @@
 import React from 'react';
-import { createStore, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
+import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 
 import ReactDOM from 'react-dom';
@@ -11,12 +10,22 @@ import * as serviceWorker from './serviceWorker';
 import rootReducer from './reducers';
 
 const INITIAL_STATE = {
-  notes: ['Note one', 'Note two'],
-  loading: false,
-  error: null
+  session: {
+    user: {
+      name: 'John',
+      email: 'john@doe.com'
+    },
+    authenticated: true,
+    error: null,
+  },
+  posts: {
+    items: [],
+    loading: false,
+    selectedTags: []
+  }
 };
 
-const store = createStore(/* reducer(s), initialState, middleware */rootReducer, applyMiddleware(thunk));
+const store = createStore(/* reducer(s), initialState, middleware */rootReducer, INITIAL_STATE);
 
 ReactDOM.render(
   <Provider store={store}>
