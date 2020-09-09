@@ -1,9 +1,10 @@
 import React from 'react';
-import ArticlesList from './components/ArticlesList';
 import './App.scss';
 
+import AtricleList from './components/ArticleList';
+
 class App extends React.Component {
-  render = () => (<ArticlesList/>);
+  render = () => (<AtricleList/>);
 }
 
 export default App;
