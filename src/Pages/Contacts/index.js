@@ -1,6 +1,27 @@
 import React from 'react';
-import {NavLink} from 'react-router-dom';
-import queryString from 'query-string';
+import {NavLink, Link} from 'react-router-dom';
+import queryString from 'query-string'; // or you can use URLSearchParams
+
+//!! Link calls method `push` of HistoryAPI
+//!! NavLink calls method `replace` of HistoryAPI
+//!! EXAMPLES
+//!! <Link to="/contacts/3"/>
+//!!
+//!! property to can be string or object
+//!!
+//!! to object example
+//!! {
+//!!    pathname: <equal to (===) href in `a` tag>,
+//!!    search: <search params>,
+//!!    hash: <additional hash value>,
+//!!    state: <Object wich will be written to location.state>
+//!!    ^ here we can put in object information about source/refferrer
+//!! }
+//!!
+//!! As well <NavLink> can use such props as:
+//!! activeClassName <string> - class name for active link,
+//!! activeStyle <object> - object with inline styles
+//!! exact <boolean> - in case `true` activeClassName and activeStyle will be applied
 
 export default class ContactsPage extends React.Component {
 
@@ -54,14 +75,17 @@ export default class ContactsPage extends React.Component {
     const category = this.getGategoryFromProps(this.props);
 
     if (!category) {
-      this.props.history.push({
+      this.props.history.replace({
         pathname: this.props.location.pathname,
         search: 'category=all'
       });
     }
+
+    // here you can do API request to receive required data
   }
 
   render() {
+    console.log(this.props);
     const params = queryString.parse(this.props.location.search);
     const contacts = this.renderContacts();
     return (
