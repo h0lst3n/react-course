@@ -1,34 +1,34 @@
 import React from 'react';
-import Layout from './components/Layout';
-import ShoppingCard from './components/ShoppingCard';
 import './App.scss';
 
-const getShoppingCardData = () => ([{
-  name: 'Card item name 1',
-  shippingStatus: "Free Shipping",
-  imageSrc: "https://react-shopping-cart-67954.firebaseapp.com/static/media/12064273040195392_1.2995d79a.jpg",
-  price: 10.2,
-  discount: 20
-}, {
-  name: 'Card item name 2',
-  shippingStatus: "Free Shipping",
-  imageSrc: "https://react-shopping-cart-67954.firebaseapp.com/static/media/12064273040195392_1.2995d79a.jpg",
-  price: 8.2,
-  discount: 10
-}, {
-  name: 'Card item name 3',
-  imageSrc: "https://react-shopping-cart-67954.firebaseapp.com/static/media/12064273040195392_1.2995d79a.jpg",
-  price: 25,
-  discount: 30
-}]);
+import Layout from './Components/Layout';
+import ProductCart from './Components/ProductCart';
 
-const App = () => {
-  const children = getShoppingCardData().map((card, index) => <ShoppingCard {...card} key={`shipping-card-${index}`}/>);
-  return (
-    <Layout>
-      {children}
-    </Layout>
-  );
-}
+const productsCollection = [
+  {
+    id: 'id-1',
+    name: 'Product#1',
+    price: 10,
+    imgUrl: "https://i2.rozetka.ua/goods/15985843/hator_htc_912_images_15985843273.jpg"
+  },
+  {
+    id: 'id-2',
+    name: 'Product#2',
+    price: 13,
+    imgUrl: "https://i2.rozetka.ua/goods/15985843/hator_htc_912_images_15985843273.jpg"
+  },
+  {
+    id: 'id-3',
+    name: 'Product#3',
+    price: 18,
+    imgUrl: "https://i2.rozetka.ua/goods/15985843/hator_htc_912_images_15985843273.jpg"
+  }
+];
+
+const App = () => (
+  <Layout>
+    {productsCollection.map((product) => <ProductCart {...product} key={product.id}/>)}
+  </Layout>
+);
 
 export default App;
