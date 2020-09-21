@@ -1,11 +1,11 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {AppContext} from './index';
 
-const withContext = WrappeComponent => {
+const withContext = WrappedComponent => {
   return function WithContext(props) {
     return (
       <AppContext.Consumer>
-        {title => <WrappeComponent {...props} title={title} />}
+        {({title}/*as property of context*/) => <WrappedComponent {...props} title={title} />}
       </AppContext.Consumer>
     );
   }

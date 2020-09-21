@@ -1,17 +1,26 @@
 import React from 'react';
 
-export const AppContext = React.createContext('default text');
+export const AppContext = React.createContext(/*default value*/{value: 'default value', title: 'TITTTTLE'});
 
 AppContext.displayName = 'AppContext';
 
-//<AppContext.Provider value={someValue}>
 //<AppContext.Consumer>
-// { context => {
-//    returns JSX
-//   }
+// { context => (
+//  <div>{context.value /* default value */}</div>
+// )
 // }
 //<AppContext.Consumer/>
+
+//<AppContext.Provider value={{value: 'new value'}}>
+//<AppContext.Provider value={{value: 'some new value'}}>
+  //<AppContext.Consumer>
+  // { context => (
+  //  <div>{context.value /* some new value */}</div>
+  // )
+  // }
+  //<AppContext.Consumer/>
 //<AppContext.Provider/>
+// <AppContext.Provider/>
 
 // export const AppWithContext = () => (
 //   <AppContext.Provider value="some value">
@@ -39,3 +48,11 @@ AppContext.displayName = 'AppContext';
 //     }
 //   </AppContext.Consumer>
 // );
+
+// <AppContext.Provider value={contextValue}>
+//   <SomeComponent> /* doesn't use context*/
+//     <AppContext.Consumer>
+//       {/* some content */} Will call re-render even if parent skips re-render using shouldComponentUpdate
+//     </AppContext.Consumer>
+//   </SomeComponent>
+// </AppContext.Provider>

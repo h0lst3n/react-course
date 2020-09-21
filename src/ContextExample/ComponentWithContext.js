@@ -2,9 +2,8 @@ import React from 'react';
 import withContext from './withContextHOC';
 
 
-const ComponentWithContext = ({label, title}) => (
+const ComponentWithContext = ({title}) => (
   <>
-    <span>Label: {label}</span>
     <span>Title: {title}</span>
   </>
 );
