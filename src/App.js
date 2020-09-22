@@ -1,6 +1,8 @@
 import React from 'react';
 import './App.scss';
 
+import './global.module.scss';
+
 import Layout from './Components/Layout';
 import ProductCart from './Components/ProductCart';
 
