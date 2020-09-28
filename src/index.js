@@ -1,19 +1,16 @@
 import React from 'react';
-import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 
 import ReactDOM from 'react-dom';
+
+import createStore from './store';
 import './index.scss';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
-import rootReducer from './reducers';
+//const rootReducer = (state = {}, action) => state;
 
-const INITIAL_STATE = {
-  notes: ['Note one', 'Note two']
-};
-
-const store = createStore(/* reducer(s), initialState, middleware */rootReducer, INITIAL_STATE);
+const store = createStore();
 
 ReactDOM.render(
   <Provider store={store}>

@@ -1,37 +1,32 @@
-import React from 'react';
 import { connect } from 'react-redux';
-import { addNote } from '../../actions/notes.actions';
 
-class NotesList extends React.Component {
+import NotesList from './NotesList.jsx';
 
-  renderNotes(notes) {
-    return (
-      notes.length
-        ? notes.map((note, index) => <li key={index}>{note}</li>)
-        : <li>No notes</li>
-    )
+import { addNote, deleteNote } from '../../actions/notes.actions';
+
+/* Simpler version
+
+const addNote = text => ({
+  type: 'ADD_NOTE',
+  payload: {
+    id: Date.now(),
+    text
   }
+});
 
-  render() {
-    const { notes } = this.props;
-    const notesList = this.renderNotes(notes);
-    return(
-      <div>
-        <button onClick={() => {this.props.addNote('New Note')}}>Add note</button>
-        <ul>
-          {notesList}
-        </ul>
-      </div>
-    );
-  }
-}
+const mapDispatchToProps = { addNote };
+
+*/
 
 const mapStateToProps = (state /*, ownProps*/) => ({
   notes: state.notes
 });
 
 const mapDispatchToProps = (dispatch /*, ownProps*/ ) => ({
-  addNote: text => dispatch(addNote(text))
-})
+  actions: {
+    addNote: text => dispatch(addNote(text)),
+    deleteNote: id => dispatch(deleteNote(id))
+  }
+});
 
-export default connect(/*<Function|null>*/mapStateToProps, mapDispatchToProps)(NotesList);
+export default connect(/*<Function|null>*/mapStateToProps, /*<Function|null>*/mapDispatchToProps)(NotesList);

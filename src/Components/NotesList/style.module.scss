@@ -1,0 +1,13 @@
+.notes-list-container {
+  display: flex;
+  flex-direction: columns;
+}
+
+.notes-list {
+  list-style: none;
+}
+
+.list-item {
+  display: flex;
+  flex-direction: row;
+}
