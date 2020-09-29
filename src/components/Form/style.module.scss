@@ -1,0 +1,18 @@
+.signup-form {
+  display: flex;
+  flex-direction: column;
+
+  label {
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+  }
+  input {
+    margin-left: 10px;
+  }
+}
+
+.error-message {
+  color: red;
+  font-size: 10px;
+}
