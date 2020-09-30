@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 
 import NotesList from './NotesList.jsx';
 
-import { addNote, deleteNote } from '../../actions/notes.actions';
+import { addNote, deleteNote } from '../../store/actions/notes.actions';
 
 /* Simpler version
 
