@@ -1,0 +1,21 @@
+.layout {
+
+}
+
+.nav-panel {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 400px;
+}
+
+.link {
+  color: black;
+  &:visited {
+    color: black;
+  }
+
+  &.active-link {
+    color: red;
+  }
+}

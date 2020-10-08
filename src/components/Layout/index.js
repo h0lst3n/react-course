@@ -1,6 +1,8 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom';
 
+import css from './style.module.scss';
+
 export default class Layout extends React.Component {
 
   render() {
@@ -10,20 +12,33 @@ export default class Layout extends React.Component {
       <React.Fragment>
         <header>
           <nav>
-            <ul>
-              <NavLink to='/'>Home page</NavLink>
+            <ul className={css['nav-panel']}>
+              <NavLink
+                exact
+                to='/'
+                className={css['link']}
+                activeClassName={css['active-link']}
+              >
+              Home page<
+              /NavLink>
               <NavLink to={
                 {
                   pathname: '/about',
-                  search: '?category=cats',
+                  search: '?category=cats&size=medium',
                   hash: '#some-hash',
-                  state: { from: '/layout'}
+                  state: { from: '/layout' }
                 }
               }
-              className="some-class-name"
-              activeClassName="active-link-classname"
+              className={css['link']}
+              activeClassName={css['active-link']}
               >About page</NavLink>
-              <NavLink to='/contacts'>Contacts page</NavLink>
+              <NavLink
+                to='/contacts'
+                className={css['link']}
+                activeClassName={css['active-link']}
+              >
+                Contacts page
+              </NavLink>
             </ul>
           </nav>
         </header>
