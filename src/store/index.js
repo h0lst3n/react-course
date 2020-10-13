@@ -1,22 +1,15 @@
-import { configureStore } from '@reduxjs/toolkit';
-import noteReducer from './reducers/note.reducer';
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
+import INITIAL_STATE from './constants/initialState';
+import rootReducer from './reducers';
 
-export default () => configureStore({
-  reducer: {
-    notes: noteReducer
-  },
-  devtools: window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-});
+// import logger from './middlewares/logger.middleware';
+// import {logger, thunk } from './middlewares';
+import {logger } from './middlewares';
 
-// import { createStore } from 'redux';
-// import INITIAL_STATE from './constants/initialState';
-//import rootReducer from './reducers';
-//
-
-// export default () => createStore(
-//   /* reducer(s), initialState, middleware */
-//   rootReducer,
-//   INITIAL_STATE,
-//   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-// );
-//
+export default () => createStore(
+  /* reducer(s), initialState, middleware */
+  rootReducer,
+  INITIAL_STATE,
+  applyMiddleware(...[logger, thunk]/**, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()**/)
+);
