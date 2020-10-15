@@ -1,11 +1,12 @@
-import React, {Component} from 'react';
+import React from 'react';
 
-class Toggler extends Component {
+export default class Toggler extends React.Component {
+
   state = {
     isOpen: false
   }
 
-  toggle = () => this.setState(prevState => ({ isOpen: !prevState.isOpen }));
+  toggle = () => this.setState(prevState => ({isOpen: !prevState.isOpen}));
 
   render() {
     return this.props.children({
@@ -14,5 +15,3 @@ class Toggler extends Component {
     });
   }
 }
-
-export default Toggler;

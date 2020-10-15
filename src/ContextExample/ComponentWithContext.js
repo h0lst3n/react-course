@@ -1,11 +1,11 @@
 import React from 'react';
-import withContext from './withContextHOC';
+import withContext from './withContext';
 
 
-const ComponentWithContext = ({label, title}) => (
+const ComponentWithContext = ({context}) => (
   <>
-    <span>Label: {label}</span>
-    <span>Title: {title}</span>
+    <span>A: {context.a}</span>
+    <span>B: {context.b}</span>
   </>
 );
 

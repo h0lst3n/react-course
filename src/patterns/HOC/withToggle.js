@@ -1,24 +1,23 @@
-import React, {Component} from 'react';
+import React from 'react';
 
 const withToggle = WrappedComponent => {
-  return class WithToggle extends Component {
+  return class WitToggle extends React.Component {
+
     state = {
       isOpen: false
-    };
+    }
 
     toggle = () => this.setState(prevState => ({isOpen: !prevState.isOpen}));
 
-    render() {
-      return (
-        <>
-          <button type="button" onClick={this.toggle}>
-            {this.state.isOpen ? 'Hide' : 'Show'}
-          </button>
+    render = () => (
+      <>
+        <button type="button" onClick={this.toggle}>
+          {this.state.isOpen ? 'Hide' : 'Show'}
+        </button>
 
-          {this.state.isOpen && <WrappedComponent {...this.props} />}
-        </>
-      );
-    }
+        {this.state.isOpen && <WrappedComponent {...this.props} />}
+      </>
+    );
   }
 }
 
