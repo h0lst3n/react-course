@@ -1,7 +1,8 @@
 import { combineReducers } from 'redux';
-
-import notesReducer from './note.reducer';
+import sessionReducer from './session.reducer';
+import postsReducer from './posts.reducer';
 
 export default combineReducers({
-  notes: notesReducer
+  session: sessionReducer,
+  posts: postsReducer
 });
