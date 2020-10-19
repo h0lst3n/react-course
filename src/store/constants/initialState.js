@@ -1,46 +1,14 @@
 export default {
   session: {
     user: {
-      name: "John Doe",
-      email: "johndoe@gmail.com"
+      name: '',
+      email: ''
     },
-    authenticated: true,
-    error: null
-  },
-  posts: {
-    items: [
-      {
-        name: 'name 1',
-        id: '1',
-        text: 'some text 1',
-        tags: ['test']
-      },
-      {
-        name: 'name 2',
-        id: '2',
-        text: 'some text 2',
-        tags: []
-      },
-      {
-        name: 'name 3',
-        id: '3',
-        text: 'some text 3',
-        tags: ['test1']
-      },
-      {
-        name: 'name 4',
-        id: '4',
-        text: 'some text 4',
-        tags: ['test4']
-      },
-      {
-        name: 'name 5',
-        id: '5',
-        text: 'some text',
-        tags: ['test', 'test4']
-      }
-    ],
-    loading: false,
-    selectedTags: []
+    isAuthenticated: false,
+    token: {
+      refresh: null,
+      session: null,
+      expiresIn: null
+    }
   }
 }
