@@ -1,10 +1,9 @@
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
-import sessionMiddleware from './middlewares/session.middleware';
 import INITIAL_STATE from './constants/initialState';
 import rootReducer from './reducers';
 
-const middleware = [thunk, sessionMiddleware];
+const middleware = [thunk];
 
 export default () => createStore(
   /* reducer(s), initialState, middleware */

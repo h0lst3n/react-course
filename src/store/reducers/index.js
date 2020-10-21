@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import sessionReducer from './session.reducer';
+import notesReducer from './notes.reducer';
 
 export default combineReducers({
-  session: sessionReducer
+  notes: notesReducer
 });
