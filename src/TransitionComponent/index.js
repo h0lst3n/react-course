@@ -1,32 +1,33 @@
 import React from 'react';
+import  { Transition } from 'react-transition-group';
 
-import {CSSTransition} from 'react-transition-group';
+const phaseDuration = 1000;
 
-import './style.scss';
+const defaultStyle = {
+  tranistion: `opacity ${phaseDuration}ms lienear`,
+  opacity: 0
+};
 
-class TransitionComponent extends React.Component {
+const transitionStyle = {
+  entering: { opacity: 0.7 },
+  entered: { opacity: 1 },
+  exiting: { opacity: 0.5 },
+  exited: { opacity: 0.2 }
+};
 
-  state = {
-    inProp: true
-  }
-
-  handleClick = () => {
-    this.setState(prevState => ({inProp: !prevState.inProp}));
-  }
-  //*-active *-enter-active *-exit *extit-active
-  render() {
-    const {inProp} = this.state;
-    return (
-      <div>
-        <CSSTransition in={inProp} timeout={{appear: 3000, enter: 4000, exit: 4000}} className='example-node'>
-          <div>
-            I will recieve example-node-classes
-          </div>
-        </CSSTransition>
-        <button type='button' onClick={this.handleClick}> Click on Enter</button>
+const TransitionComponent = ({in: inProp}) => (
+  <Transition in={inProp} timeout={phaseDuration} unmountOnExit={true}>
+    {state => (
+      <div style={
+        {
+          ...defaultStyle,
+          ...transitionStyle[state]
+        }
+      }>
+        I'm tranistion component. Current phase is {state}
       </div>
-    );
-  }
-}
+    )}
+  </Transition>
+);
 
 export default TransitionComponent;

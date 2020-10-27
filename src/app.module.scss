@@ -1,0 +1,7 @@
+.animated-div {
+  transition: opacity 1s linear;
+
+  &:hover {
+    opacity: 0;
+  }
+}

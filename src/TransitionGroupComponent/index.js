@@ -1,54 +1,42 @@
 import React from 'react';
-import {TransitionGroup, CSSTransition} from 'react-transition-group';
-import './style.scss';
+import { TransitionGroup, CSSTransition} from 'react-transition-group';
 
 class TransitionGroupComponent extends React.Component {
 
   state = {
-    items: [
-      `User`
-    ]
+    list: []
   }
 
   handleAdd = () => {
-    this.setState(prevState => ({items: prevState.items.concat('User Copy')}));
-  }
+    const id = Date.now();
+    this.setState((prevState) => ({list: [...prevState.list, {name: `List item #${id}`, id}]}));
+  };
 
-  handleRemove = (index) => {
-   let newItems = this.state.items;
-   newItems.splice(index, 1);
-   this.setState({items: newItems});
-  }
+  handleRemove = (id) => {
+    this.setState(prevState => ({list: prevState.list.filter((item) => item.id !== id) }));
+  };
 
-  renderItem = (name, index) => {
-    return (
-      <CSSTransition timeout={1000} key={index} className="list-item">
-      <div>
-        <span>{name}</span><button onClick={() => {this.handleRemove(index)}}>X</button>
-      </div>
-      </CSSTransition>
-    );
-  }
 
   render() {
-    const items = this.state.items.map((item, i ) => {
-      return this.renderItem(item, i);
-    });
+    const {list} = this.state;
 
     return (
       <>
-        <button onClick={this.handleAdd}>Add Item</button>
-        <div className="list">
-          <TransitionGroup className="item-list"
-          >
-            {items}
-          </TransitionGroup>
-        </div>
+        <button type="button" onClick={this.handleAdd}>Add item</button>
+        <TransitionGroup>
+          {list.map(
+            (item) => (
+              <CSSTransition key={item.id} timeout={1000}>
+                <div>
+                  {item.name}&nbsp;
+                  <button type="button" onClick={() => this.handleRemove(item.id)}>X</button>
+                </div>
+              </CSSTransition>)
+          )}
+        </TransitionGroup>
       </>
     );
   }
-
-
 }
 
 export default TransitionGroupComponent;
