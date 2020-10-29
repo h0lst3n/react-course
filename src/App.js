@@ -7,7 +7,6 @@ const App = () => {
     <>
       <div>React APP</div>
       <div>
-        <h3>Notes list:</h3>
         <NotesList/>
       </div>
     </>

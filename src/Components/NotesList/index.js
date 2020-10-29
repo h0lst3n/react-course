@@ -1,32 +1,69 @@
+import React from 'react';
 import { connect } from 'react-redux';
 
-import NotesList from './NotesList.jsx';
+import { addNote, deleteNote } from '../../store/actions/notes.actions';
 
-import { addNote, deleteNote } from '../../actions/notes.actions';
+const NoteItem = ({text, id, onDelete}) => (
+  <li>
+    <strong>{text}</strong>
+    <button type="button" onClick={() => onDelete(id)}>X</button>
+  </li>
+);
 
-/* Simpler version
+class NotesList extends React.Component {
 
-const addNote = text => ({
-  type: 'ADD_NOTE',
-  payload: {
-    id: Date.now(),
-    text
-  }
-});
+  state = {
+    text: ''
+  };
 
-const mapDispatchToProps = { addNote };
+  handleDelete = (id) => {
+    this.props.deleteNote(id);
+  };
 
-*/
+  handleTextChange = (e) => {
+    const { value: text  } = e.target;
+    this.setState({text});
+  };
 
-const mapStateToProps = (state /*, ownProps*/) => ({
+  hadleAddNote = () => {
+    const { text } = this.state;
+    this.props.addNote(text);
+    this.setState({text: ''});
+  };
+
+  render() {
+    const { text } = this.state;
+    const { notes } = this.props;
+    return (
+      <div>
+        <h2>Notes List</h2>
+        <div>
+          <strong>Add note:</strong>
+          <input type="text" placeholder="Enter note text" value={text} onChange={this.handleTextChange}/>
+          <button type="button" onClick={this.hadleAddNote}>Add note</button>
+        </div>
+        <div>
+          <ul>
+            {
+              notes.length > 0
+                ? notes.map(note => <NoteItem {...note} key={note.id} onDelete={this.handleDelete}/>)
+                : <li>There are no notes</li>
+            }
+          </ul>
+        </div>
+      </div>
+    );
+  };
+  
+};
+
+const mapStateToProps = state => ({
   notes: state.notes
 });
 
-const mapDispatchToProps = (dispatch /*, ownProps*/ ) => ({
-  actions: {
-    addNote: text => dispatch(addNote(text)),
-    deleteNote: id => dispatch(deleteNote(id))
-  }
-});
+// const mapDispatchToProps = dispatch => ({
+//   addNote: (text) => dispatch(addNote(text)),
+//   deleteNote: (id) => dispatch(deleteNote(id))
+// });
 
-export default connect(/*<Function|null>*/mapStateToProps, /*<Function|null>*/mapDispatchToProps)(NotesList);
+export default connect(mapStateToProps, { addNote, deleteNote })(NotesList);
