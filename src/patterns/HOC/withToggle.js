@@ -1,13 +1,13 @@
 import React from 'react';
 
-const withToggle = WrappedComponent => {
-  return class WitToggle extends React.Component {
+const withToggleHOC = WrappedComponent => {
+  return class WithToggleHOC extends React.Component {
 
     state = {
       isOpen: false
-    }
+    };
 
-    toggle = () => this.setState(prevState => ({isOpen: !prevState.isOpen}));
+    toggle = () => this.setState(({isOpen: prevIsOpen}) => ({isOpen: !prevIsOpen}));
 
     render = () => (
       <>
@@ -15,10 +15,10 @@ const withToggle = WrappedComponent => {
           {this.state.isOpen ? 'Hide' : 'Show'}
         </button>
 
-        {this.state.isOpen && <WrappedComponent {...this.props} />}
+        {this.state.isOpen && <WrappedComponent {...this.props}/>}
       </>
-    );
+    )
   }
-}
+};
 
-export default withToggle;
+export default withToggleHOC;

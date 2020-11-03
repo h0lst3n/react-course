@@ -1,10 +1,10 @@
 import React from 'react';
 
-const AppContext = React.createContext(/** default value **/ {a: 1, b: 2, c:3});
-AppContext.displayName = 'AppContext';
+const AppContext = React.createContext(/** default value **/{a:1, b:2, c:3});
+AppContext.displayName = 'ExampleAppContext';
 
 //AppContext.Provider
-//AppContext.Consumer
+//AppContext.Consume
 
 
 export default AppContext;

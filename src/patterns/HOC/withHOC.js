@@ -1,9 +1,12 @@
 import React from 'react';
 
-const withHOC = WrappedComponent => {
-  return class WithHOC extends React.Component {
-    render = () => <WrappedComponent {...this.props} extraProps='extra props value'/>
-  }
-}
+const withHigherOrderComponent = WrappedComponent => {
+  return class WithHigherOrderComponent extends React.Component {
 
-export default withHOC;
+    render() {
+      return <WrappedComponent {...this.props} extraProperty="extra property"/>
+    }
+  }
+};
+
+export default withHigherOrderComponent;

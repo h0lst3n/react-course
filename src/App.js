@@ -1,104 +1,125 @@
 import React from 'react';
 
-import AppContext from './ContextExample';
-
-import ConsumerComponent from './ContextExample/ConsumerComponent';
-
-import ComponentWithContext from './ContextExample/ComponentWithContext';
-
-// import Toggler from './patterns/renderProps/Toggler';
-//
-
-// import TestComponent from './components/TestComponent';
-
-// import withHOC from './patterns/HOC/withHOC';
-// import withLog from './patterns/HOC/withLog';
-// import withFetch from './patterns/HOC/withFetch';
-// import withToggle from './patterns/HOC/withToggle';
-
 import './App.scss';
 
-// const WithHOCExample = withHOC(TestComponent);
-// const WithLogExample = withLog(TestComponent);
-// const WithFetchExample = withFetch('https://hn.algolia.com/api/v1/search?query=react')(TestComponent);
-// const WithToggleExample = withToggle(TestComponent);
-//
-//
-class WrappedWithContext extends React.Component {
-  state = {
-    valueOne: 1,
-    valueTwo: 2
-  }
+import ExampleComponent from './patterns/HOC/Example';
+import withHigherOrderComponent from './patterns/HOC/withHOC';
+import withLoggerHOC from './patterns/HOC/withLogger';
+import withFetchHOC from './patterns/HOC/withFetch';
+import withToggleHOC from './patterns/HOC/withToggle';
+import Toggler from './patterns/RenderProps/Toggler';
 
-  updateState = () => {
-    this.setState(prevState => ({
-      valueOne: prevState.valueOne + 1,
-      valueTwo:  prevState.valueTwo + 1
-    }));
-  }
+/** Context examples **/
+import AppContext from './ContextExample';
+import ConsumerComponent from './ContextExample/ConsumerComponent';
+import withContextHOC from './ContextExample/withContext';
 
-  render() {
-    return (
-      <>
-        <button type="button" onClick={this.updateState}>Change Context Value</button>
-        <AppContext.Provider value={this.state}>
-          <ConsumerComponent index="1"/>
-          <ComponentWithContext />
-        </AppContext.Provider>
-      </>
-      );
-  }
-}
+const WithContextHOCExample = withContextHOC(AppContext)(ExampleComponent);
+
+const WithTogglerComponent = () => (
+  <div>
+    <Toggler>
+      {
+        ({isOpen, onToggle}) => (
+          <>
+            <button type="button" onClick={onToggle}>
+              {isOpen ? 'Hide' : 'Show'}
+            </button>
+
+            {isOpen && <strong>First toggler's child</strong>}
+          </>
+        )
+      }
+    </Toggler>
+
+    <Toggler>
+      {
+        ({isOpen, onToggle}) => (
+          <>
+            <button type="button" onClick={onToggle}>
+              {isOpen ? 'Hide' : 'Show'}
+            </button>
+
+            {isOpen && <strong>Second toggler's child</strong>}
+          </>
+        )
+      }
+    </Toggler>
+  </div>
+);
+
+const ContextExampleSection = () => (
+  <>
+    <strong>Context Usage Exmaple:</strong>
+
+    <AppContext.Provider value={{a:3, b:1, c:5}}>
+      <ConsumerComponent/>
+      <AppContext.Consumer>
+        { context => <ExampleComponent {...context}/>}
+      </AppContext.Consumer>
+
+      <AppContext.Consumer>
+        { context => (
+          <AppContext.Provider value={{a: context.a + 2, b: context.b -3, c:5}}>
+            <ConsumerComponent/>
+            <AppContext.Consumer>
+              { context => <ExampleComponent {...context}/>}
+            </AppContext.Consumer>
+          </AppContext.Provider>
+        )}
+      </AppContext.Consumer>
+
+    </AppContext.Provider>
+
+    <AppContext.Consumer>
+      { context => <ExampleComponent {...context}/>}
+    </AppContext.Consumer>
+
+    <WithContextHOCExample/>
+  </>
+
+);
 
 class App extends React.Component {
-  render() {
-    return (
-      <div>
-        React patterns
-          <WrappedWithContext/>
-          <ConsumerComponent  index="2"/>
-          <ComponentWithContext />
-      </div>
-    )
-  }
-}
 
-// const App = () => (
-//   <div>
-//   React patterns
-//   <AppContext.Provider value={{a: 2, b: 3, c: 4}}>
-//     <ConsumerComponent/>
-//   </AppContext.Provider>
-//     <ConsumerComponent/>
-//   {/** Context **/}
-//   {/** RENDER PROPS **/}
-//   {/**<Toggler>
-//     {
-//       ({isOpen, onToggle}) => (
-//         <>
-//           <>
-//             <button type="button" onClick={onToggle}>
-//               {isOpen ? 'Hide' : 'Show'}
-//             </button>
-//
-//             {isOpen && <div>Toggler content</div>}
-//           </>
-//           <>
-//           <button type="button" onClick={onToggle}>
-//             {isOpen ? 'AnotherHide' : 'AnotherShow'}
-//           </button>
-//           </>
-//         </>
-//       )
-//     }
-//   </Toggler>**/}
-//
-//   {/** Hogher Order Compoent **/}
-//   {/**<WithHOCExample/>
-//   <WithLogExample someProp="some prop value"/>
-//   <WithToggleExample/>
-//   <WithFetchExample/>**/}
-//   </div>
-// );
+    render() {
+      const WithHOCExample = withHigherOrderComponent(ExampleComponent);
+      const WithLoggerExample = withLoggerHOC(ExampleComponent);
+      const WithFetchExample =
+        withFetchHOC('http://hn.algolia.com/api/v1/search?query=react')(ExampleComponent);
+      const WithToggleExample = withToggleHOC(ExampleComponent);
 
-export default App;
+      return (
+        <>
+          <div>
+            <strong>With HOC Example:</strong>
+            <WithHOCExample propOne="prop one" propTwo="prop two"/>
+          </div>
+
+          <div>
+            <strong>With Logger Example:</strong>
+            <WithLoggerExample propOne="With Logger Component"/>
+          </div>
+
+          <div>
+            <strong>With Toggle Example:</strong>
+            <WithToggleExample propOne="With Toggle Component"/>
+          </div>
+
+          <div>
+            <strong>With Render Props Example:</strong>
+            <WithTogglerComponent/>
+          </div>
+
+          <ContextExampleSection/>
+          <div>
+            <strong>With Fetch Example:</strong>
+            <WithFetchExample/>
+          </div>
+
+        </>
+      )
+    }
+  };
+
+  export default App;
