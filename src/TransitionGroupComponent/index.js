@@ -1,54 +1,53 @@
 import React from 'react';
 import {TransitionGroup, CSSTransition} from 'react-transition-group';
-import './style.scss';
 
-class TransitionGroupComponent extends React.Component {
+export default class TransitionGroupComponent extends React.Component {
 
   state = {
-    items: [
-      `User`
-    ]
+    items: []
   }
 
-  handleAdd = () => {
-    this.setState(prevState => ({items: prevState.items.concat('User Copy')}));
+  addItem = () => {
+    this.setState(
+      ({items: prevItems}) => ({
+        items: [
+          ...prevItems,
+          {
+            name: `item #${prevItems.length + 1}`,
+            id: prevItems.length + 1
+          }
+        ]
+      }));
   }
 
-  handleRemove = (index) => {
-   let newItems = this.state.items;
-   newItems.splice(index, 1);
-   this.setState({items: newItems});
-  }
-
-  renderItem = (name, index) => {
-    return (
-      <CSSTransition timeout={1000} key={index} className="list-item">
-      <div>
-        <span>{name}</span><button onClick={() => {this.handleRemove(index)}}>X</button>
-      </div>
-      </CSSTransition>
-    );
+  deleteItem = (id) => {
+    const {items} = this.state;
+    const newItems = items.filter(({id: itemId}) => itemId !== id);
+    this.setState({items: newItems});
   }
 
   render() {
-    const items = this.state.items.map((item, i ) => {
-      return this.renderItem(item, i);
-    });
+    const { items } = this.state;
 
     return (
       <>
-        <button onClick={this.handleAdd}>Add Item</button>
-        <div className="list">
-          <TransitionGroup className="item-list"
-          >
-            {items}
-          </TransitionGroup>
-        </div>
+        <strong>TransitionGroup Example</strong>
+        <button type="button" onClick={this.addItem}>Add Item</button>
+        <TransitionGroup>
+          {
+            items.map(({name, id}) => (
+              <CSSTransition
+                timeout={1500}
+                key={id}
+                classNames="collection-item"
+                onExited={() => console.log('collection item exited')}
+              >
+                <div>{name}<b onClick={() => this.deleteItem(id)}>X</b></div>
+              </CSSTransition>
+            ))
+          }
+        </TransitionGroup>
       </>
     );
   }
-
-
 }
-
-export default TransitionGroupComponent;
