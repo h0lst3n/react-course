@@ -1,12 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { addNote, deleteNote } from '../../store/actions/notes.actions';
+import { addNote, deleteNote, fetchNotes } from '../../store/actions/notes.actions';
 
-const NoteItem = ({text, id, onDelete}) => (
+const NoteItem = ({title, objectID, onDelete}) => (
   <li>
-    <strong>{text}</strong>
-    <button type="button" onClick={() => onDelete(id)}>X</button>
+    <strong>{title}</strong>
+    <button type="button" onClick={() => onDelete(objectID)}>X</button>
   </li>
 );
 
@@ -31,6 +31,10 @@ class NotesList extends React.Component {
     this.setState({text: ''});
   };
 
+  componentDidMount() {
+    this.props.fetchNotes('https://hn.algolia.com/api/v1/search?query=react');
+  }
+
   render() {
     const { text } = this.state;
     const { notes } = this.props;
@@ -46,7 +50,7 @@ class NotesList extends React.Component {
           <ul>
             {
               notes.length > 0
-                ? notes.map(note => <NoteItem {...note} key={note.id} onDelete={this.handleDelete}/>)
+                ? notes.map(note => <NoteItem {...note} key={note.objectID} onDelete={this.handleDelete}/>)
                 : <li>There are no notes</li>
             }
           </ul>
@@ -54,16 +58,11 @@ class NotesList extends React.Component {
       </div>
     );
   };
-  
+
 };
 
 const mapStateToProps = state => ({
   notes: state.notes
 });
 
-// const mapDispatchToProps = dispatch => ({
-//   addNote: (text) => dispatch(addNote(text)),
-//   deleteNote: (id) => dispatch(deleteNote(id))
-// });
-
-export default connect(mapStateToProps, { addNote, deleteNote })(NotesList);
+export default connect(mapStateToProps, { addNote, deleteNote, fetchNotes })(NotesList);
