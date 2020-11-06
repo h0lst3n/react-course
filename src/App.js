@@ -5,9 +5,8 @@ import './App.scss';
 const App = () => {
   return (
     <>
-      <div>React APP</div>
+      <div>Redux Basics</div>
       <div>
-        <h3>Notes list:</h3>
         <NotesList/>
       </div>
     </>
