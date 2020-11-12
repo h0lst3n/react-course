@@ -1,15 +1,17 @@
 import React from 'react';
-import NotesList from './Components/NotesList';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+
 import './App.scss';
+
+import SignUpPage from './Pages/SignUp';
 
 const App = () => {
   return (
-    <>
-      <div>React APP</div>
-      <div>
-        <NotesList/>
-      </div>
-    </>
+    <BrowserRouter>
+      <Switch>
+        <Route path="/" component={SignUpPage} />
+      </Switch>
+    </BrowserRouter>
   );
 }
 
