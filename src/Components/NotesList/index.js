@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { addNote, deleteNote } from '../../store/actions/notes.actions';
+import { addNote, deleteNote, fetchNotes } from '../../store/actions/notes.actions';
 
-const NoteItem = ({id, text, onDelete}) => (
+const NoteItem = ({objectID, title, onDelete}) => (
   <li>
-    <strong>{text}</strong>
-    <button type="button" onClick={() => onDelete(id)}>X</button>
+    <strong>{title}</strong>
+    <button type="button" onClick={() => onDelete(objectID)}>X</button>
   </li>
 );
 
@@ -14,6 +14,10 @@ class NotesList extends React.Component {
   state = {
     noteName: ''
   };
+
+  componentDidMount() {
+    this.props.fetchNotes();
+  }
 
   handleNoteNameChange = (e) => {
     const { value } = e.target;
@@ -46,7 +50,7 @@ class NotesList extends React.Component {
         <div>
           <ul>
             {
-              notes.map(({id, text}) => <NoteItem id={id} text={text} key={id} onDelete={this.handleDelete}/>)
+              notes.map(({objectID, title}) => <NoteItem objectID={objectID} title={title} key={objectID} onDelete={this.handleDelete}/>)
             }
           </ul>
         </div>
@@ -66,5 +70,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { addNote, deleteNote } /* mapDispatchToProps */
+  { addNote, deleteNote, fetchNotes } /* mapDispatchToProps */
 )(NotesList);

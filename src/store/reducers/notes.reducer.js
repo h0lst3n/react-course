@@ -1,11 +1,13 @@
-import { ADD_NOTE, DELETE_NOTE } from '../actions/notes.actions';
+import { ADD_NOTE, DELETE_NOTE, NOTES_FETCH_SUCCES } from '../actions/notes.actions';
 
 const notesReducer = (state = [], action) => {
   switch (action.type) {
+    case NOTES_FETCH_SUCCES:
+      return [...state, ...action.payload.data];
     case ADD_NOTE:
       return [...state, action.payload];
     case DELETE_NOTE:
-      return state.filter(({id}) => id !== action.payload.id);
+      return state.filter(({objectID: id}) => id !== action.payload.objectID);
     default:
       return state;
   }
