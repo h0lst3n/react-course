@@ -2,6 +2,7 @@ export const ADD_NOTE = 'ADD_NOTE';
 export const DELETE_NOTE = 'DELETE_NOTE';
 export const NOTES_FETCH_SUCCESS = 'NOTES_FETCH_SUCCESS';
 export const NOTES_FETCH_ERROR = 'NOTES_FETCH_ERROR';
+export const RESET_NOTES = 'RESET_NOTES';
 
 export const fetchNotes = url => dispatch => {
   fetch(url)
@@ -37,4 +38,8 @@ export const deleteNote = objectID => ({
   payload: {
     objectID
   }
+});
+
+export const resetNotes = () => ({
+  type: RESET_NOTES
 });

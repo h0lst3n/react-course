@@ -1,4 +1,4 @@
-import { DO_LOGIN } from '../actions/auth.actions';
+import { DO_LOGIN, LOGOUT } from '../actions/auth.actions';
 
 const initialState = {
   isAuthenticated: false,
@@ -20,6 +20,8 @@ export default (state = initialState, action) => {
           access
         }
       };
+    case LOGOUT:
+      return initialState;
     default:
       return state;
   }
