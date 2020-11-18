@@ -1,3 +1,7 @@
 export default {
-  notes: []
+  notes: {
+    items: [],
+    tags: [],
+    selectedTags: []
+  }
 };

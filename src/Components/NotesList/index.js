@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { addNote, deleteNote, fetchNotes } from '../../store/actions/notes.actions';
 
+import { getNotesBySelectedTags } from '../../store/selectors/notes.selectors';
+
 const NoteItem = ({objectID, title, onDelete}) => (
   <li>
     <strong>{title}</strong>
@@ -35,6 +37,7 @@ class NotesList extends React.Component {
   }
 
   render() {
+    console.log(this.props);
     const { noteName } = this.state;
     const  { notes } = this.props;
     return (
@@ -60,7 +63,7 @@ class NotesList extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  notes: state.notes
+  notes: getNotesBySelectedTags(state)
 });
 
 // const mapDispatchToProps = dispatch => ({
