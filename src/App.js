@@ -9,15 +9,13 @@ import SignUpPage from './Pages/SignUp';
 import LoginPage from './Pages/LoginPage';
 import DashboardPage from './Pages/DashboardPage';
 
+import NotesList from './Components/NotesList';
+
 const App = () => {
   return (
-    <BrowserRouter>
-      <Switch>
-        <PublicRoute path="/signup" component={SignUpPage} />
-        <PublicRoute path="/login" component={LoginPage} />
-        <PrivateRoute path="/" component={DashboardPage} />
-      </Switch>
-    </BrowserRouter>
+    <div>
+      <NotesList/>
+    </div>
   );
 }
 

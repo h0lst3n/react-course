@@ -1,7 +1,15 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React, {
+  useState,
+  useEffect,
+  useLayoutEffect,
+  useCallback,
+  useMemo,
+  useRef
+} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { addNote, deleteNote, fetchNotes } from '../../store/actions/notes.actions';
+import { notesSelector } from '../../store/selectors/notes.selectors';
 
 const NoteItem = ({title, objectID, onDelete}) => (
   <li>
@@ -10,59 +18,71 @@ const NoteItem = ({title, objectID, onDelete}) => (
   </li>
 );
 
-class NotesList extends React.Component {
+const NotesList = () => {
+  const dispatch = useDispatch();
+  const notes = useSelector(notesSelector);
+  const [text, setText] = useState('');
+  const inputRef = useRef(null);
+  const handleTextChange = useCallback(e => {
+    const { value } = e.target;
+    setText(value);
+  }, [setText]);
 
-  state = {
-    text: ''
-  };
+  const handleNoteDelete = useCallback(
+    (objectID) => dispatch(deleteNote(objectID))
+  , [dispatch]);
 
-  handleDelete = (id) => {
-    this.props.deleteNote(id);
-  };
+  const notesList = useMemo(() => (
+    notes.length > 0
+      ? notes.map(
+        note => <NoteItem {...note}
+          key={note.objectID}
+          onDelete={() => handleNoteDelete(note.objectID)}
+        />)
+      : <li>There are no notes</li>
+  ), [notes]);
 
-  handleTextChange = (e) => {
-    const { value: text  } = e.target;
-    this.setState({text});
-  };
+  const handleAddNote = useCallback(() => {
+    dispatch(addNote(text));
+    setText('');
+  }, [text, dispatch, setText]);
+  useLayoutEffect(() => {
+    console.log('layout effect');
+  }, []);
 
-  hadleAddNote = () => {
-    const { text } = this.state;
-    this.props.addNote(text);
-    this.setState({text: ''});
-  };
+  useEffect(() => {
+    console.log('Like componentDidMount');
+    inputRef.current.focus();
+    dispatch(fetchNotes('https://hn.algolia.com/api/v1/search?query=react'));
+  }, []);
 
-  componentDidMount() {
-    this.props.fetchNotes('https://hn.algolia.com/api/v1/search?query=react');
-  }
+  useEffect(() => {
+    console.log('Like componentDidUpdata');
+  }, [text]);
 
-  render() {
-    const { text } = this.state;
-    const { notes } = this.props;
-    return (
+  useEffect(() => {
+    console.log('Like componentWillUnmount');
+    // return () => {
+    //   /* function should be called before unmount */
+    //   return true;
+    // };
+  }, []);
+
+  return (
+    <div>
+      <h2>Notes List</h2>
       <div>
-        <h2>Notes List</h2>
-        <div>
-          <strong>Add note:</strong>
-          <input type="text" placeholder="Enter note text" value={text} onChange={this.handleTextChange}/>
-          <button type="button" onClick={this.hadleAddNote}>Add note</button>
-        </div>
-        <div>
-          <ul>
-            {
-              notes.length > 0
-                ? notes.map(note => <NoteItem {...note} key={note.objectID} onDelete={this.handleDelete}/>)
-                : <li>There are no notes</li>
-            }
-          </ul>
-        </div>
+        <strong>Add note:</strong>
+        <input ref={inputRef} type="text" placeholder="Enter note text" value={text} onChange={handleTextChange}/>
+        <button type="button" onClick={handleAddNote}>Add note</button>
       </div>
-    );
-  };
-
+      <div>
+        <ul>
+          {notesList}
+        </ul>
+      </div>
+    </div>
+  );
 };
 
-const mapStateToProps = state => ({
-  notes: state.notes
-});
-
-export default connect(mapStateToProps, { addNote, deleteNote, fetchNotes })(NotesList);
+export default NotesList;
