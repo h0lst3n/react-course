@@ -6,7 +6,11 @@ import {
   UNSELECT_TAG
 } from '../actions/notes.actions';
 
-const cachedContacts = localStorage.getItem('contacts');
+const initialState = {
+  items: [],
+  tags: [],
+  selectedTags: []
+};
 
 const notesReducer = (state = initialState, action) => {
   switch (action.type) {

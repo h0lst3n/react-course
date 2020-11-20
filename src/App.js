@@ -1,17 +1,14 @@
 import React from 'react';
-import TagsList from './Components/TagsList';
-import NotesList from './Components/NotesList';
+import { BrowserRouter, Route } from 'react-router-dom';
 import './App.scss';
+
+import SignUpPage from './Pages/SignupPage';
 
 const App = () => {
   return (
-    <>
-      <div>Redux Basics</div>
-      <TagsList/>
-      <div>
-        <NotesList/>
-      </div>
-    </>
+    <BrowserRouter>
+      <Route path="/" exact component={SignUpPage}/>
+    </BrowserRouter>
   );
 }
 
