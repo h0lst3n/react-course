@@ -1,13 +1,21 @@
 const sessionMiddleware = state => next => action => {
-  if (!action.meta && !action.meta.saveToken) {
+  if (!action.meta || !action.meta.token) {
     return next(action);
   }
 
-  const { access } = action.payload.data;
+  const actionType = action.meta.token.action;
 
-  localStorage.setItem('access', access);
+  if (actionType === 'save') {
+    const { access } = action.payload.data;
 
-  delete action.meta.saveToken;
+    localStorage.setItem('access', access);
+  }
+
+  if (actionType === 'delete') {
+    localStorage.removeItem('access');
+  }
+
+  delete action.meta.token;
 
   return next(action);
 };

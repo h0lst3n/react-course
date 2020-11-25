@@ -1,4 +1,4 @@
-import { LOGIN_SUCCESS } from '../actions/session.actions';
+import { LOGIN_SUCCESS, LOGOUT } from '../actions/session.actions';
 
 const initialState = {
   isAuthenticated: false,
@@ -19,6 +19,8 @@ export default (state = initialState, action) => {
           refresh
         }
       };
+    case LOGOUT:
+      return initialState;
     default:
       return state;
   }

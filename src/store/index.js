@@ -4,11 +4,11 @@ import thunk from 'redux-thunk';
 import initialState from './constants/initialState';
 import rootReducer from './reducers';
 
-import { loggerMiddleware, sessionMiddleware } from './middleware';
+import { loggerMiddleware, sessionMiddleware, apiMiddleware } from './middleware';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-const middleware = [loggerMiddleware, sessionMiddleware, thunk];
+const middleware = [loggerMiddleware, apiMiddleware, sessionMiddleware, thunk];
 
 const createStoreFunc = () =>
   createStore(/* reducer, [preloadedState], [enhancer] */
