@@ -1,21 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import StyledButton from '../common/StyledButton';
+
+import css from './style.module.scss';
+
 const ShoppingCart = ({
   imgSrc,
   name,
   price
 }) => {
   return (
-    <div>
+    <div className={css['item-list']}>
       <img src={imgSrc} alt="" />
-      {name && <h2>{name}</h2>}
+      {name && <h2 className={css['item-label']}>{name}</h2>}
       {
         price
           ? <p>Price: ${price}</p>
           : <p><strong>Please ask manager</strong></p>
       }
-      <button type="button">Add to cart</button>
+      <StyledButton bgColor="red">Add to cart</StyledButton>
     </div>
   );
 };

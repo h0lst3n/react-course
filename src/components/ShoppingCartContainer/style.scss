@@ -1,0 +1,10 @@
+.item-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 10px;
+
+  &:hover {
+    border: 1px solid black;
+  }
+}

@@ -1,0 +1,19 @@
+@value default-border-color from '../../variables.module.scss';
+
+.item-list {
+  &:hover {
+    border: 2px dashed red;
+  }
+}
+
+.item-label {
+  composes: item-list;
+  &:hover {
+    border-color: default-border-color;
+    cursor: pointer;
+  }
+}
+
+:global(.global-class-example) {
+  background-color: yellow;
+}
