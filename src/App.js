@@ -1,20 +1,14 @@
 import React from 'react';
 
-import Counter from './components/Counter';
-import Toggler from './components/Toggler';
-//import ExampleClassComponent from './components/ExampleClassComponent';
+import Form from './components/Form';
 
 const App = (props) => {
+  const onSubmit = (data) => {
+    console.log('Form has been submited:', data);
+  }
   return (
     <div>
-      {/*<ExampleClassComponent {...{propOne: 1, propTwo: '2'}}/>*/}
-      <Counter step={3} initialCounter={3}/>
-      <Toggler>
-        <div>
-          <p><strong>Additional</strong></p>
-          <p>toggler content</p>
-        </div>
-      </Toggler>
+      <Form onSubmit={onSubmit}/>
     </div>
   );
 };
