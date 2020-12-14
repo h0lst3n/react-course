@@ -9,8 +9,10 @@
     "@testing-library/user-event": "^7.2.1",
     "axios": "^0.21.0",
     "prop-types": "^15.7.2",
+    "query-string": "^6.13.7",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
     "shortid": "^2.2.16",
     "styled-components": "^5.2.1"
