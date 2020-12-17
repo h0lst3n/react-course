@@ -1,29 +1,33 @@
-import React from 'react';
+import React, { lazy, Suspense }  from 'react';
+import { Switch, Route } from 'react-router-dom';
 
-import { Route, Switch, Redirect } from 'react-router-dom';
+import Loading from './components/common/Loading';
 
-import HomePage from './Pages/Home';
-import AboutPage from './Pages/About';
-import ContactsPage from './Pages/Contacts';
-// import NotFoundPage from './Pages/NotFound';
+// import pages from './components/pages';
+
+const AsyncHomePage = lazy(() => import('./components/pages/HomePage' /* webpackChunkName: "home-page" */));
+const AsyncContactsPage = lazy(() => import('./components/pages/ContactsPage' /* webpackChunkName: "home-page" */));
+
+const HomePage = () => <Suspense fallback={<Loading/>}><AsyncHomePage/></Suspense>;
+const ContactsPage = () => <Suspense fallback={<Loading/>}><AsyncContactsPage/></Suspense>;
+//const loadComponentA = () => import('./components/ComponentA')
 
 class App extends React.Component {
 
+
+
   render() {
+    // const { HomePage, ContactsPage } = pages;
+    // const HomePage = loadHomePage();
+    // const ContactsPage = loadContactsPage();
     return (
-      <>
+      <div>
+        <h2>Lesson 8 (Code Splitting)</h2>
         <Switch>
-          <Route path="/" exact >
-            {
-              props => <HomePage {...props} extraProps="value" />
-            }
-          </Route>
-          <Route path="/about" component={AboutPage} />
-          <Route path="/contacts" component={ContactsPage} />
-          <Redirect to="/" />
-          {/* <Route component={NotFoundPage}/> */}
+          <Route path="/" exact component={HomePage}/>
+          <Route path="/contacts" exact component={ContactsPage}/>
         </Switch>
-      </>
+      </div>
     );
   }
 }
