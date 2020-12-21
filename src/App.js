@@ -1,32 +1,66 @@
-import React, { lazy, Suspense }  from 'react';
-import { Switch, Route } from 'react-router-dom';
+import React from 'react';
 
-import Loading from './components/common/Loading';
+import StyledArea from './components/StyledArea';
+import StyledAreaItem from './components/StyledAreaItem';
 
-// import pages from './components/pages';
+import TestComponent from './components/TestComponent';
+// import BitTestComponent from './components/BigTestComponent';
+// import AnotherTestComponent from './components/AnotherTestComponent';
+//
+// import { withHigherOrderComponent, withLog, withFetch, withToggle } from './patterns/HOC';
+//
+// import { AppContextProvider, AppContextConsumer } from './context/AppContext';
+//
+// const WithHigherOrderComponent = withHigherOrderComponent(TestComponent);
+// const WithLogComponent = withLog(TestComponent);
+// // const WithFetchComponent = withFetch('https://hn.algolia.com/api/v1/search?query=react')(TestComponent);
+// const WithFetchToggleComponent = withFetch('https://hn.algolia.com/api/v1/search?query=react')(withToggle(BitTestComponent));
 
-const AsyncHomePage = lazy(() => import('./components/pages/HomePage' /* webpackChunkName: "home-page" */));
-const AsyncContactsPage = lazy(() => import('./components/pages/ContactsPage' /* webpackChunkName: "home-page" */));
 
-const HomePage = () => <Suspense fallback={<Loading/>}><AsyncHomePage/></Suspense>;
-const ContactsPage = () => <Suspense fallback={<Loading/>}><AsyncContactsPage/></Suspense>;
-//const loadComponentA = () => import('./components/ComponentA')
 
 class App extends React.Component {
-
-
-
   render() {
-    // const { HomePage, ContactsPage } = pages;
-    // const HomePage = loadHomePage();
-    // const ContactsPage = loadContactsPage();
     return (
       <div>
-        <h2>Lesson 8 (Code Splitting)</h2>
-        <Switch>
-          <Route path="/" exact component={HomePage}/>
-          <Route path="/contacts" exact component={ContactsPage}/>
-        </Switch>
+        <h2>Lesson 9 (React Patterns)</h2>
+      {/*  <WithHigherOrderComponent propOne="One" propTwo="Two"/>
+        <WithLogComponent descirption="Component with log"/>
+        {/*<WithFetchComponent>With fetch</WithFetchComponent>
+        <WithFetchToggleComponent/>
+        <AnotherTestComponent/>
+        <AppContextProvider value={{ theme: 'red' }}>
+
+          <AppContextConsumer>
+            {
+              context => (<div>{context.theme}</div>)
+            }
+          </AppContextConsumer>
+
+          <AppContextProvider value={{ theme: 'green' }}>
+            <AppContextConsumer>
+              {
+                context => (
+                  <div>
+                  {context.theme}
+                  <AppContextProvider value={{ theme: 'blue' }}>
+                    <AppContextConsumer>
+                      {
+                        context => (<div>{context.theme}</div>)
+                      }
+                    </AppContextConsumer>
+                  </AppContextProvider>
+                  </div>
+                )
+              }
+            </AppContextConsumer>
+          </AppContextProvider>
+        </AppContextProvider>*/}
+        <StyledArea>
+          <TestComponent> asdasdad </TestComponent>
+          <StyledAreaItem>
+            Example #2
+          </StyledAreaItem>
+        </StyledArea>
       </div>
     );
   }
