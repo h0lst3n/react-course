@@ -1,0 +1,38 @@
+.animated-item {
+  background: black;
+  cursor: pointer;
+  color: white;
+  opacity: .5;
+  width: 100px;
+  transition: all .5s linear;
+
+  &:hover {
+    opacity: 1;
+    width: 50px;
+  }
+};
+
+.enter {
+  opacity: 0.2;
+  transition: opacity .5s linear;
+}
+.enterActive {
+  opacity: 0.6;
+  transition: opacity .5s linear;
+}
+.enterDone {
+  opacity: 1;
+  transition: opacity .5s linear;
+}
+.exit {
+  opacity: 0.6;
+  transition: opacity .5s linear;
+}
+.exitActive {
+  opacity: 0.4;
+  transition: opacity .5s linear;
+}
+.exitDone {
+  opacity: 0;
+  transition: opacity .5s linear;
+}
