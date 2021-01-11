@@ -1,65 +1,64 @@
 import React from 'react';
-import { TransitionGroup, CSSTransition } from 'react-transition-group';
+import { connect } from 'react-redux';
 
-import css from './Contact.module.scss';
+import { addContact } from '../../store/actions/contacts.actions';
 
-import Contact from './Contact';
+import List from './List';
+
+const INITIAL_STATE = {
+  contactName: '',
+  contactNumber: ''
+};
 
 class ContactsList extends React.Component {
 
-  state = {
-    contacts: [],
-    contactName: ''
-  }
+  state = {...INITIAL_STATE};
+
+  handleChange = (e) => {
+    const { value, name } = e.target;
+    this.setState({ [name]: value });
+  };
 
   addContact = () => {
-    this.setState(({contacts: prevContacts, contactName: name}) => ({
-      contacts: [...prevContacts, { name, id: Date.now() }],
-      contactName: ''
-    }));
-  };
-
-  removeContact = (id) => {
-    this.setState(({contacts: prevContacts}) => ({
-      contacts: prevContacts.filter(contact => contact.id !== id)
-    }));
-  };
-
-  handleContactNameEnter = (e) => {
-    const { value: contactName } = e.target;
-    this.setState({contactName});
+    const { contactName: name, contactNumber: number } = this.state;
+    this.props.addContact({ name, number });
+    this.setState({...INITIAL_STATE});
   };
 
   render() {
-    const { contacts, contactName } = this.state;
-
-    return(
-      <div>
-        <b>Contacts</b>
+    const { contactName, contactNumber } = this.state;
+    return (
+      <>
         <div>
-          <label>
-            Contact name:
-            <input type="text" onChange={this.handleContactNameEnter} value={contactName}/>
-            <button onClick={this.addContact}>Add contact</button>
-          </label>
-          {
-            contacts.length > 0
-              ? (
-                <TransitionGroup component="ul" className={css['contact-list']}>
-                  {
-                    contacts.map((contact) =>
-                      <CSSTransition key={contact.id} classNames={css} timeout={700}>
-                        <Contact {...contact} onDelete={this.removeContact}/>
-                      </CSSTransition>)
-                  }
-                </TransitionGroup>
-              )
-              : (<ul><li>There is no contacts yet</li></ul>)
-          }
+          <div>
+            <input type="text"
+              onChange={this.handleChange}
+              value={contactName}
+              placeholder="Enter new contact name"
+              name="contactName"
+            />
+          </div>
+          <div>
+            <input type="text"
+              onChange={this.handleChange}
+              value={contactNumber}
+              placeholder="Enter new contact number"
+              name="contactNumber"
+            />
+          </div>
+          <button onClick={this.addContact}>Add contact</button>
         </div>
-      </div>
+        <List/>
+      </>
     );
   }
-}
+};
 
-export default ContactsList;
+// const mapDispatchToProps = dispatch => ({
+//   actions: {
+//     addContact: ({name, number}) => {
+//       dispatch(addContact({name, number}))
+//     }
+//   }});
+
+export default connect(null, /*mapDispatchToProps*/ { addContact })(ContactsList);
