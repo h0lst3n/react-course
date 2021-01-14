@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { addContact } from '../../store/actions/contacts.actions';
+import { addContact } from '../../store/slices/contacts.slice';
 
 import List from './List';
 

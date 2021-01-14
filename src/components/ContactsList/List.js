@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { deleteContact } from '../../store/actions/contacts.actions';
+import { deleteContact } from '../../store/slices/contacts.slice';
 
 const List = ({contacts, deleteContact}) => (
   <div>
