@@ -1,5 +1,5 @@
 const initialState = {
-  contacts: []
+  articles: []
 };
 
 export default initialState;

@@ -1,13 +1,13 @@
 import React from 'react';
 
-import ContactsList from './Components/ContactsList';
+import ArticlesList from './Components/ArticlesList';
 
 class App extends React.Component {
   render() {
     return (
       <div>
-      <h2>Lesson 11 (Introduction to Redux)</h2>
-      <ContactsList/>
+      <h2>Lesson 13 (Asynchronous redux actions)</h2>
+      <ArticlesList/>
       </div>
     );
   }
