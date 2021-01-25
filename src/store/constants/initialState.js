@@ -1,5 +1,10 @@
 const initialState = {
-  articles: []
+  articles: {
+    items: [],
+    loading: false,
+    tags: [],
+    selectedTags: []
+  }
 };
 
 export default initialState;
