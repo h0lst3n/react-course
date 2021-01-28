@@ -1,5 +1,4 @@
 import { combineReducers } from 'redux';
+import contacts from './contacts.reducer';
 
-import articlesReducer from './articles.reducer';
-
-export default combineReducers({articles: articlesReducer});
+export default combineReducers({contacts});

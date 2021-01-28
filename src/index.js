@@ -9,6 +9,21 @@ import { initializeStore } from './store';
 
 const store = initializeStore();
 
+store.subscribe(() => {
+  const { contacts } = store.getState();
+
+  if (contacts && contacts.items) {
+    localStorage.setItem(
+      'appState',
+      JSON.stringify({
+        contacts: {
+          items: contacts.items
+        }
+      })
+    );
+  }
+});
+
 ReactDOM.render(
   <Provider store={store}>
     <App/>

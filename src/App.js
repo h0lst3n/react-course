@@ -1,15 +1,17 @@
 import React from 'react';
 
-import ArticlesList from './Components/ArticlesList';
-import TagsList from './Components/TagsList';
+import ContactInput from './Components/ContactInput';
+import ContactsList from './Components/ContactsList';
+import ContactsFilter from './Components/ContactsFilter';
 
 class App extends React.Component {
   render() {
     return (
       <div>
-      <h2>Lesson 14 (Redux Selectors)</h2>
-      <TagsList/>
-      <ArticlesList/>
+        <h2>Lesson 15 (Homework #6)</h2>
+        <ContactInput/>
+        <ContactsFilter/>
+        <ContactsList/>
       </div>
     );
   }

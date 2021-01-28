@@ -1,9 +1,7 @@
 const initialState = {
-  articles: {
+  contacts: {
     items: [],
-    loading: false,
-    tags: [],
-    selectedTags: []
+    filter: ''
   }
 };
 
