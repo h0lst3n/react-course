@@ -1,4 +1,4 @@
 import { combineReducers } from 'redux';
-import contacts from './contacts.reducer';
+import sessionReducer from './session.reducer';
 
-export default combineReducers({contacts});
+export default combineReducers({session: sessionReducer});

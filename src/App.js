@@ -1,17 +1,15 @@
 import React from 'react';
+import {BrowserRouter, Route} from 'react-router-dom';
 
-import ContactInput from './Components/ContactInput';
-import ContactsList from './Components/ContactsList';
-import ContactsFilter from './Components/ContactsFilter';
+import RegistrationPage from './Pages/Registartion';
 
 class App extends React.Component {
   render() {
     return (
       <div>
-        <h2>Lesson 15 (Homework #6)</h2>
-        <ContactInput/>
-        <ContactsFilter/>
-        <ContactsList/>
+        <BrowserRouter>
+          <Route path="/registration" exact component={RegistrationPage}/>
+        </BrowserRouter>
       </div>
     );
   }

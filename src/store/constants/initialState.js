@@ -1,7 +1,10 @@
 const initialState = {
-  contacts: {
-    items: [],
-    filter: ''
+  session: {
+    isLogedIn: false,
+    user: {
+      name: '',
+      email: ''
+    }
   }
 };
 

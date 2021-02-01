@@ -2,7 +2,7 @@ import { createStore, applyMiddleware, compose } from 'redux';
 // import thunk from 'redux-thunk';
 
 import rootReducer from './reducers';
-import { loggerMiddleware } from './middlewares';
+import { loggerMiddleware, apiMiddleware } from './middlewares';
 
 import initialState from './constants/initialState';
 
@@ -17,7 +17,7 @@ const getInitalState = () => {
 };
 
 const middleware = compose(
-  applyMiddleware(...[loggerMiddleware]),
+  applyMiddleware(...[loggerMiddleware, apiMiddleware]),
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 
