@@ -1,4 +1,7 @@
-import { LOGIN } from '../actions/session.actions';
+import {
+  SIGN_IN,
+  LOGOUT
+ } from '../actions/session.actions';
 
 const initialState = {
   isLogedIn: false,
@@ -10,11 +13,14 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case LOGIN: {
+    case SIGN_IN: {
       return {
         ...state,
         isLogedIn: true
       };
+    }
+    case LOGOUT: {
+      return initialState;
     }
     default:
       return state;

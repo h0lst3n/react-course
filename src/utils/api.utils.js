@@ -5,3 +5,9 @@ export const request = (data) => {
     token: 'asdasdasdasda.asdasdasda.qqqqwq1212'
   });
 }
+
+export const validationRequest = (token) => {
+  return Promise.resolve({
+    isValid: true
+  });
+}

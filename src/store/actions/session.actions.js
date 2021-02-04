@@ -3,12 +3,19 @@ import { storeAccessToken } from '../../utils/token.utils';
 export const REGISTER = 'REGISTER';
 export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
+export const SIGN_IN = 'DO_LOGIN';
 
 export const login = userData => ({
   type: LOGIN,
+  meta: {
+    api: true,
+    url: '/login'
+  },
   payload: {
-    data: userData
-  }
+    data: userData,
+    onSuccess: signIn,
+    onSuccessCallback: storeAccessToken
+  },
 });
 
 export const register = ({email, password}) => ({
@@ -30,3 +37,7 @@ export const register = ({email, password}) => ({
 export const logout = () => ({
   type: LOGOUT
 });
+
+export const signIn = () => ({
+  type: SIGN_IN
+})
