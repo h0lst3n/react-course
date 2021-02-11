@@ -1,6 +1,6 @@
 import {
   SIGN_IN,
-  LOGOUT
+  SIGN_OUT
  } from '../actions/session.actions';
 
 const initialState = {
@@ -14,12 +14,13 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case SIGN_IN: {
+      const { user } = action.payload;
       return {
-        ...state,
+        user,
         isLogedIn: true
       };
     }
-    case LOGOUT: {
+    case SIGN_OUT: {
       return initialState;
     }
     default:

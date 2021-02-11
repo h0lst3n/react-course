@@ -2,9 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 
-import { logout, signIn } from './store/actions/session.actions';
-
-import { checkIsTokenValid } from './utils/token.utils';
+import { getTokenDetails } from './store/actions/session.actions';
 
 import { PublicRoute, PrivateRoute } from './Components/Routes';
 
@@ -17,13 +15,7 @@ import ContactsPage from './Pages/Contacts';
 class App extends React.Component {
 
   componentDidMount() {
-    checkIsTokenValid().then(({isValid}) => {
-      if (!isValid) {
-        this.props.logout();
-      } else {
-        this.props.signIn();
-      }
-    });
+    this.props.getTokenDetails()
   }
 
   render() {
@@ -41,4 +33,4 @@ class App extends React.Component {
   }
 }
 
-export default connect(null, { logout, signIn})(App);
+export default connect(null, { getTokenDetails })(App);

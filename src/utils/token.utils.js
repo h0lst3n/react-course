@@ -1,17 +1,9 @@
-import { validationRequest } from './api.utils';
-
-export const storeAccessToken = (data) => {
-  const { token } = data;
+export const storeAccessToken = (token) => {
   localStorage.setItem('accessToken', token);
 };
 
-export const checkIsTokenValid = () => {
-  const token = localStorage.getItem('accessToken');
-  if (token) {
-    return validationRequest(token);
-  } else {
-    return Promise.resolve({
-      isValid: false
-    })
-  }
+export const clearToken = () => {
+  localStorage.clear();
 };
+
+export const getToken = () => localStorage.getItem('accessToken');

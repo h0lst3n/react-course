@@ -1,12 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
 import { register } from '../../store/actions/session.actions';
 
 class RegistrationPage extends React.Component {
 
   state = {
-    login: '',
+    name: '',
+    email: '',
     password: '',
     repeatPassword: '',
     isRegisterDisabled: true
@@ -18,10 +20,12 @@ class RegistrationPage extends React.Component {
   }
 
   setIsRegisterDisabled = () => {
-    const { login, password, repeatPassword } = this.state;
+    const { name, email, password, repeatPassword } = this.state;
 
     this.setState({
-      isRegisterDisabled: login === '' ||
+      isRegisterDisabled:
+        name === '' ||
+        email === '' ||
         password === '' ||
         password !== repeatPassword
     });
@@ -29,20 +33,29 @@ class RegistrationPage extends React.Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-    const { login, password } = this.state;
-    this.props.register({login ,password});
+    const { name, email, password } = this.state;
+    this.props.register({name, email ,password});
   }
 
   render() {
-    const { login, password, repeatPassword, isRegisterDisabled } = this.state;
+    const { isLogedIn } = this.props;
+    const { name, email, password, repeatPassword, isRegisterDisabled } = this.state;
     return (
-      <div>
+      isLogedIn
+      ? <Redirect to="/"/>
+      : (<div>
         <h2>Registartion</h2>
         <form>
           <div>
             <label>
-              <b>Login</b>
-              <input type="text" placeholder="Enter login" value={login} name="login" onChange={this.handleChange}/>
+              <b>name</b>
+              <input type="text" placeholder="Enter name" value={name} name="name" onChange={this.handleChange}/>
+            </label>
+          </div>
+          <div>
+            <label>
+              <b>email</b>
+              <input type="text" placeholder="Enter email" value={email} name="email" onChange={this.handleChange}/>
             </label>
           </div>
           <div>
@@ -59,9 +72,13 @@ class RegistrationPage extends React.Component {
           </div>
           <button type="submit" onClick={this.onSubmit} disabled={isRegisterDisabled}>Register</button>
         </form>
-      </div>
+      </div>)
     );
   }
 }
 
-export default connect(null, {register})(RegistrationPage);
+const mapStateToProps = state => ({
+  isLogedIn: state.session.isLogedIn
+});
+
+export default connect(mapStateToProps, {register})(RegistrationPage);

@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom';
 
 import { logout } from '../../store/actions/session.actions';
 
-const Header = ({ logout }) => (
+const Header = ({ logout, email }) => (
   <div>
-    <span>Navigation</span>
+    <span>{email}</span>
     <nav>
       <Link to="/">Dashboard</Link>
       <Link to="/settings">Settings</Link>
@@ -16,4 +16,8 @@ const Header = ({ logout }) => (
   </div>
 );
 
-export default connect(null, { logout })(Header);
+const mapStateToProps = state => ({
+  email: state.session.user.email
+});
+
+export default connect(mapStateToProps, { logout })(Header);

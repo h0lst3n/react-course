@@ -1,13 +1,18 @@
-export const request = (data) => {
-  return Promise.resolve({
-    name: 'name',
-    surname: 'surname',
-    token: 'asdasdasdasda.asdasdasda.qqqqwq1212'
-  });
-}
+import axios from 'axios';
+import { getToken } from './token.utils';
 
-export const validationRequest = (token) => {
-  return Promise.resolve({
-    isValid: true
+const API_URL = 'https://goit-phonebook-api.herokuapp.com/';
+
+export const request = ({method = 'get', url, data, authorized = false }) => {
+  const headers = {};
+  if (authorized) {
+    headers['Authorization'] = getToken();
+  }
+
+  return axios({
+    method,
+    url: `${API_URL}${url}`,
+    data,
+    headers
   });
-}
+};
